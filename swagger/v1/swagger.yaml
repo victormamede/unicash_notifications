@@ -1,0 +1,243 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/credit/transfer":
+    post:
+      summary: credit transfer
+      tags:
+      - Credit
+      parameters: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              examples:
+                default:
+                  value:
+                    status: success
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sender_id:
+                  type: number
+                recipient_id:
+                  type: number
+                amount:
+                  type: number
+  "/shop/offer":
+    post:
+      summary: shop offer
+      tags:
+      - Shop
+      parameters: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              examples:
+                default:
+                  value:
+                    notified_users:
+                    - 1324
+                    - 1325
+                    - 1326
+                    - 1327
+                    - 1328
+                    - 1329
+                    - 1330
+                    - 1331
+                    - 1332
+                    - 1333
+                    - 1334
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                shop_id:
+                  type: number
+                shop_name:
+                  type: string
+                offer_description:
+                  type: string
+  "/users":
+    post:
+      summary: create user
+      tags:
+      - Users
+      parameters: []
+      responses:
+        '201':
+          description: successful
+          content:
+            application/json:
+              examples:
+                default:
+                  value:
+                    id: 1346
+                    name: Lorenzo Ordonhes
+                    email: jamal_green@gottlieb-marquardt.biz
+                    matricula: '6366552779'
+                    device_token:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                matricula:
+                  type: string
+  "/users/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    put:
+      summary: update user
+      tags:
+      - Users
+      parameters: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              examples:
+                default:
+                  value:
+                    id: 1347
+                    name: Dr. Joaquim Bonfim
+                    email: rayna_heaney@blanda.co
+                    matricula: '6186434018'
+                    device_token:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                matricula:
+                  type: string
+    delete:
+      summary: delete user
+      tags:
+      - Users
+      responses:
+        '204':
+          description: successful
+  "/users/{id}/notifications":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: user login
+      tags:
+      - Users
+      - Notifications
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              examples:
+                default:
+                  value:
+                  - id: 127
+                    title: perferendis
+                    message: Quasi sint a ducimus.
+                    data:
+                    read: false
+                  - id: 128
+                    title: perspiciatis
+                    message: Mollitia voluptates aspernatur omnis.
+                    data:
+                    read: false
+                  - id: 129
+                    title: laudantium
+                    message: Sit nemo adipisci magnam.
+                    data:
+                    read: false
+                  - id: 130
+                    title: aut
+                    message: Laudantium cumque voluptatem magni.
+                    data:
+                    read: false
+                  - id: 131
+                    title: consequatur
+                    message: Saepe eius rerum ipsa.
+                    data:
+                    read: false
+  "/users/{id}/login":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    post:
+      summary: user login
+      tags:
+      - Users
+      parameters: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              examples:
+                default:
+                  value:
+                    id: 1380
+                    name: Thiago Ouriques
+                    email: loralee@fay-daugherty.name
+                    matricula: '5356338047'
+                    device_token: '123123'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                device_token:
+                  type: string
+servers:
+- url: "{protocol}://{host}"
+  variables:
+    protocol:
+      enum:
+      - http
+      - https
+      default: http
+    host:
+      default: localhost:3000
+components:
+  securitySchemes:
+    jwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
